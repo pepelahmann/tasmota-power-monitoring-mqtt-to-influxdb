@@ -1,22 +1,9 @@
-FROM python:3.8 AS build
+FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip --no-cache-dir install poetry==1.0.0b4
+COPY . /app
 
-RUN poetry config virtualenvs.in-project true
+RUN pip install --no-cache-dir paho-mqtt influxdb-client
 
-COPY pyproject.toml poetry.lock ./
-
-RUN poetry install --no-dev
-
-COPY main.py ./
-
-FROM python:3.8-slim AS runtime
-
-WORKDIR /app
-ENV PATH="/app/.venv/bin:$PATH"
-
-COPY --from=build /app/ ./
-
-CMD [ "python", "main.py" ]
+CMD ["python", "main.py"]
