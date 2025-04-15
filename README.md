@@ -1,22 +1,29 @@
-# Tasmota Power Monitoring → MQTT → InfluxDB 2
+# Tasmota Power Monitoring → MQTT → InfluxDB 2.x
 
-📡 Dieses Tool liest Energiewerte von Tasmota-Smartplugs über MQTT aus und schreibt sie in eine InfluxDB 2.x Instanz.
+📡 Dieses Tool liest Energiedaten von Tasmota-Smartplugs über MQTT und schreibt sie in eine InfluxDB 2.x-Datenbank.
 
 ---
 
-## 🚀 Installation mit Docker
+## 🚀 Features
 
-### 🧾 Voraussetzungen
+- Unterstützung für **Tasmota**-Geräte mit Energiemessung
+- Datenübertragung via **MQTT**
+- Speicherung in **InfluxDB 2.x**
+- Leichtgewichtiges Setup per Docker
 
-- Docker
-- MQTT-Broker (z. B. Mosquitto oder ein anderer MQTT-Dienst)
-- InfluxDB 2.x (getestet mit 2.7+)
+---
+
+## 🧾 Voraussetzungen
+
+- Docker & Docker Compose
+- MQTT-Broker (z. B. Mosquitto)
+- InfluxDB 2.x (mit Token, Bucket und Organisation)
 
 ---
 
 ## ⚙️ Setup
 
-### 1. Repository klonen
+### 🔧 1. Repository klonen
 
 ```bash
 git clone https://github.com/pepelahmann/tasmota-power-monitoring-mqtt-to-influxdb.git
