@@ -1,28 +1,25 @@
-version: "3.7"
+version: "3.8"
+services:
+  influxdb:
+    image: influxdb:2.7
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb2:/var/lib/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=supersecure
+      - DOCKER_INFLUXDB_INIT_ORG=my-org
+      - DOCKER_INFLUXDB_INIT_BUCKET=my-bucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-token
+
+  tasmota-monitor:
+    build: .
+    depends_on:
+      - influxdb
+    env_file: .env
 
 volumes:
-  influxdata:
+  influxdb2:
 
-services:
-  app:
-    build: .
-    environment:
-      INFLUXDB_HOST: influxdb
-      INFLUXDB_USER: user
-      INFLUXDB_PASSWORD: user
-      INFLUXDB_DB: tasmota
-      MQTT_HOST: 192.168.178.3
-  influxdb:
-    image: influxdb:1.7
-    ports:
-      - 127.0.0.1:8086:8086
-    environment:
-      INFLUXDB_HTTP_AUTH_ENABLED: "true"
-      INFLUXDB_ADMIN_USER: root
-      INFLUXDB_ADMIN_PASSWORD: root
-      INFLUXDB_USER: user
-      INFLUXDB_USER_PASSWORD: user
-      INFLUXDB_REPORTING_DISABLED: "true"
-      INFLUXDB_DB: tasmota
-    volumes:
-      - influxdata:/var/lib/influxdb
